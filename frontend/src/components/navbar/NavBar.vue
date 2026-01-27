@@ -19,8 +19,8 @@ import Searchicon from "@/components/navbar/icons/Searchicon.vue";
         </label>
         <div class="px-2 font-bold text-xl">AIFriends</div>
       </div>
-      <div class="navbar-center w-4/5 max-w-180">
-        <div class="join w-4/5">
+      <div class="navbar-center w-4/5 max-w-180 felx justify-center">
+        <div class="join w-4/5 felx justify-center">
           <input class="input join-item rounded-l-full w-4/5" placeholder="搜索你感兴趣的的模型" />
           <button class="btn join-item rounded-r-full gap-0">
             <Searchicon />
