@@ -17,7 +17,7 @@ export const useUserStore = defineStore('user', () => {
     }
 
     function setUserInfo(data){//和后端返回的数据一一对应
-        id.value = data.id
+        id.value = data.user_id
         username.value = data.username
         photo.value = data.photo
         profile.value = data.profile

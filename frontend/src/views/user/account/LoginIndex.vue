@@ -29,7 +29,7 @@ async function handleLogin() {
       if(data.result==='success'){
         user.setAccessToken(data.access)
         user.setUserInfo(data)
-        router.push({
+        await router.push({
           name:"homepage-index"
         })
       }else {
@@ -42,6 +42,9 @@ async function handleLogin() {
   }
 }
 </script>
+
+
+
 
 <template>
   <div class="flex justify-center mt-30">
