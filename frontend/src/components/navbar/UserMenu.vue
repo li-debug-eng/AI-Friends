@@ -21,7 +21,7 @@ function closeMenu() {
     </div>
     <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-lg">
       <li>
-        <RouterLink :to="{name: 'user-profile-index', params: {userId: user.userId}}">
+        <RouterLink :to="{name: 'user-profile-index', params: {userid: user.userid}}">
           <div tabindex="0" role="button" class="avatar btn btn-circle w-8 h-8 mr-6">
             <div class="w-10 rounded-full">
             <img :src="user.photo" alt="">

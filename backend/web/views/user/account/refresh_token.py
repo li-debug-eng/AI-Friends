@@ -11,6 +11,7 @@ class RefreshTokenView(APIView):
             refresh_token = request.COOKIES.data['refresh_token']
             if not refresh_token:
                 return Response({'result':'refresh token 不存在'},status=401)
+            from rest_framework_simplejwt.tokens import RefreshToken
             refresh = RefreshToken(refresh_token)#验证refresh token如果过期了会报异常
             if settings.SIMPLE_JWT['ROTATE_REFRESH_TOKENS']:
                 refresh.set_jti()
