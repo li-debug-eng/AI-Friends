@@ -8,26 +8,26 @@ from rest_framework.views import APIView
 class RefreshTokenView(APIView):
     def post(self,request):
         try:
-            refresh_token = request.COOKIES.data['refresh_token']
+            refresh_token = request.COOKIES.get('refresh_token')
             if not refresh_token:
                 return Response({'result':'refresh token 不存在'},status=401)
             from rest_framework_simplejwt.tokens import RefreshToken
             refresh = RefreshToken(refresh_token)#验证refresh token如果过期了会报异常
             if settings.SIMPLE_JWT['ROTATE_REFRESH_TOKENS']:
                 refresh.set_jti()
-                reponse = Response({
+                response = Response({
                     'result':'success',
                     'access':str(refresh.access_token),
                 })
-                responses.set_cookie(
+                response.set_cookie(
                     key='refresh_token',
                     value=str(refresh),
                     httponly=True,
                     samesite='Lax',
-                    secure = True,
+                    secure=True,
                     max_age=86400 * 7,
                 )
-                return reponse
+                return response
             return Response({'result':'success',
                              'access':str(refresh.access_token),
             })

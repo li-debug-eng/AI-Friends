@@ -7,6 +7,7 @@ import LoginIndex from "@/views/user/account/LoginIndex.vue";
 import RegisterIndex from "@/views/user/account/RegisterIndex.vue";
 import SpaceIndex from "@/views/space/SpaceIndex.vue";
 import ProfileIndex from "@/views/profile/ProfileIndex.vue";
+import {useUserStore} from "@/stores/user.js";
 
 
 const router = createRouter({
@@ -15,49 +16,89 @@ const router = createRouter({
     {
       path: '/',
       component: HomepageIndex,
-      name: 'homepage-index'
+      name: 'homepage-index',
+      meta:{
+        needLogin:false,
+      },
         },
+
     {
       path: '/friend/',
       component: FriendIndex,
-      name: 'friend-index'
+      name: 'friend-index',
+      meta:{
+        needLogin:true,
+      },
         },
     {
       path: '/create/',
       component: CreateIndex,
-      name: 'create-index'
-        },
+      name: 'create-index',
+      meta:{
+        needLogin:true,
+      },
+    },
     {
       path: '/404/',
       component: NotFoundIndex,
-      name: '404'
+      name: '404',
+      meta:{
+        needLogin:false,
+      },
+
         },
     {
       path: '/user/account/login/',
       component: LoginIndex,
-      name: 'user-account-login-index'
+      name: 'user-account-login-index',
+      meta:{
+        needLogin:false,
+      },
         },
     {
       path: '/user/account/register/',
       component: RegisterIndex,
-      name: 'user-account-register-index'
+      name: 'user-account-register-index',
+      meta:{
+        needLogin:false,
+      },
         },
     {
-      path: '/user/space/:user_id',
+      path: '/user/space/:user_id/',
       component: SpaceIndex,
-      name: 'user-space-index'
+      name: 'user-space-index',
+      meta:{
+        needLogin:false,
+      },
         },
     {
       path: '/user/profile/',
       component: ProfileIndex,
-      name: 'user-profile-index'
+      name: 'user-profile-index',
+      meta:{
+        needLogin:true,
+      },
         },
     {
       path: '/:pathMatch(.*)*',//兜底，正则表达式表示可以匹配任何路径
       component: NotFoundIndex,
-      name: 'not-found'
+      name: 'not-found',
+      meta:{
+        needLogin:false,
+      },
     }
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  const user = useUserStore()
+  if(to.meta.needLogin && user.hasPulledUserInfo && !user.isLogin()){
+    next({
+      name:'user-account-login-index',
+    })
+  } else {
+    next()
+  }
 })
 
 export default router

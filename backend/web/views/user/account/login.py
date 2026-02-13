@@ -29,11 +29,11 @@ class LoginView(APIView):
                     })
                     response.set_cookie(
                         key='refresh_token',
-                        value  = str(refresh),
+                        value=str(refresh),
                         httponly=True,
                         samesite='Lax',
-                        secure=True,
-                        max_age= 86400 * 7
+                        secure=False,  # 开发环境使用 HTTP，生产环境改为 True
+                        max_age=86400 * 7
                     )
                     return response
                 return Response({

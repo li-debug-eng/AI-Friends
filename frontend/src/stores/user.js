@@ -1,5 +1,5 @@
 import {defineStore} from "pinia";
-import {ref} from "vue";
+import {hasInjectionContext, ref} from "vue";
 
 export const useUserStore = defineStore('user', () => {
     const id = ref(0)
@@ -7,6 +7,7 @@ export const useUserStore = defineStore('user', () => {
     const photo = ref('')
     const profile = ref('')
     const accessToken = ref('')
+    const hasPulledUserInfo = ref(false)
 
     function isLogin(){
         return !!accessToken.value //!!把一个值转成布尔值就是判断是否为空 一定要带value
@@ -14,6 +15,7 @@ export const useUserStore = defineStore('user', () => {
 
     function setAccessToken(token){
         accessToken.value = token
+
     }
 
     function setUserInfo(data){//和后端返回的数据一一对应
@@ -23,13 +25,19 @@ export const useUserStore = defineStore('user', () => {
         profile.value = data.profile
     }
 
-    function logout(){
+    function logout() {
         id.value = 0
         username.value = ''
         photo.value = ''
         profile.value = ''
         accessToken.value = ''
     }
+
+    function  setHasPulledUserInfo(newStatus){
+        hasPulledUserInfo.value = newStatus
+    }
+
+
     return {
         id,
         username,
@@ -40,8 +48,11 @@ export const useUserStore = defineStore('user', () => {
         setUserInfo,
         isLogin,
         logout,
+        hasPulledUserInfo,
+        setHasPulledUserInfo,
     }
 })
+
 
 //(a,b,c)=>{ }//定义了一个函数等价于function(a,b,c)
 
